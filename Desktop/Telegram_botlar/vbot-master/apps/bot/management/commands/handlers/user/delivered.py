@@ -40,7 +40,7 @@ def handler(msg: Message):
     user_id = msg.chat.id
     State.set_data(user_id, "sendf2", msg.text)
     State.set_state(user_id, "sendp2")
-    bot.send_message(user_id, "Mijozning telefon raqamini kiriting\nMisol: 943990509")
+    bot.send_message(user_id, "Mijozning telefon raqamini kiriting\n\nMisol: 943990509")
 
 
 @bot.message_handler(func=Filter(state="sendp2"))

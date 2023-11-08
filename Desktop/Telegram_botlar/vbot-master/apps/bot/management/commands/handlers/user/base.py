@@ -160,7 +160,7 @@ def Phone(msg: Message):
         bot.send_message(user_id, "Qaysi kunga jo`ja kerak")
     elif state == "number":
         State.set_data(user_id, "number", msg.contact)
-        bot.send_message(user_id, "Siz ro'yhatdan o'tdingiz ✅", reply_markup=vhome)
+        bot.send_message(user_id, "Siz ro'yhatdan o'tdingiz ✅", reply_markup=markup)
         State.set_state(user_id, "home")
 
 
@@ -199,6 +199,7 @@ def Phone(msg: Message):
 @bot.message_handler(content_types=["photo", "video"])
 def handler(msg: Message):
     user_id = msg.chat.id
+    user_id = user_id
     user = BUser.get_user(user_id)
     state = State.get_state(user_id)
     content_type = msg.content_type
@@ -239,7 +240,8 @@ def handler(msg: Message):
         loc.save()
 
         vet = Veterinarian()
-
+        vet.user_id = user_id
+        print(State.get_data)
         vet.user = user.profile
         vet.first_name = name
         vet.phone = phone
@@ -296,6 +298,7 @@ def handler(msg: Message):
         loc.save()
 
         p = Placing()
+        p.user_id = user_id
         p.user = user.profile
         p.name = name
         p.phone = phone
@@ -314,7 +317,8 @@ def handler(msg: Message):
         number = State.get_data(user_id, "number")
 
         r = Registration()
-        r.p.user = user.profile
+        r.user_id = user_id
+        r.user = user.profile
         r.name = name
         r.phone = number
         r.save()
